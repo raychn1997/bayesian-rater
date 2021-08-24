@@ -24,7 +24,7 @@ def rate(n, rating_avg):
 
 # Load and pre-compute adjusted ratings
 if 'df' not in st.session_state:
-    st.session_state['df'] = pd.read_json('data/yelp.json', lines=True)
+    st.session_state['df'] = pd.read_json('data/yelp.json')
     st.session_state['df']['adjusted_rating'] = st.session_state['df'][['review_count', 'stars']].apply(lambda x: rate(*x), axis=1)
     st.session_state['df'] = st.session_state['df'][['adjusted_rating', 'stars', 'name', 'address', 'city', 'state',
                                                      'postal_code', 'latitude', 'longitude', 'review_count', 'is_open',
@@ -33,7 +33,7 @@ if 'df' not in st.session_state:
 
 
 # A box to select the state
-state = st.sidebar.selectbox('Choose a state and I will rank their restaurants for you',
+state = st.sidebar.selectbox('Choose a state and I will rank its restaurants for you',
                              st.session_state['states'])
 
 # Filter by state
